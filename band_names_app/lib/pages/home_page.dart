@@ -43,18 +43,41 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  ListTile _bandTile(Banda banda) {
-    return ListTile(
-      leading: CircleAvatar(
-        child: Text(banda.name.substring(0, 2)),
-        backgroundColor: Colors.blue[100],
+  Widget _bandTile(Banda banda) {
+    return Dismissible(
+      key: Key(banda.id),
+      direction: DismissDirection.startToEnd,
+      onDismissed: (direction) {
+
+      },
+      background: Container(
+        color: Colors.red,
+        padding: EdgeInsets.only(left: 8.0),
+        child: Align(
+            alignment: Alignment.centerLeft,
+            child: Row(
+              children: [
+                Icon(Icons.delete, color: Colors.white,),
+                Text(
+                  "Eliminar Banda",
+                  style:
+                      TextStyle(color: Colors.white, fontWeight: FontWeight.normal),
+                ),
+              ],
+            )),
       ),
-      title: Text(banda.name),
-      trailing: Text(
-        '${banda.votes}',
-        style: TextStyle(fontSize: 20),
+      child: ListTile(
+        leading: CircleAvatar(
+          child: Text(banda.name.substring(0, 2)),
+          backgroundColor: Colors.blue[100],
+        ),
+        title: Text(banda.name),
+        trailing: Text(
+          '${banda.votes}',
+          style: TextStyle(fontSize: 20),
+        ),
+        onTap: () {},
       ),
-      onTap: () {},
     );
   }
 
@@ -87,9 +110,7 @@ class _HomePageState extends State<HomePage> {
         builder: (_) {
           return CupertinoAlertDialog(
             title: Text("Nueva banda en IOS"),
-            content: CupertinoTextField(
-                controller: textController
-            ),
+            content: CupertinoTextField(controller: textController),
             actions: [
               CupertinoDialogAction(
                 isDefaultAction: true,
@@ -99,18 +120,17 @@ class _HomePageState extends State<HomePage> {
               CupertinoDialogAction(
                 isDestructiveAction: true,
                 child: Text("Cancelar"),
-                onPressed: ()=> Navigator.pop(context),
+                onPressed: () => Navigator.pop(context),
               )
             ],
           );
-        }
-    );
+        });
   }
 
   void addBandToList(String name) {
     if (name.length > 1) {
       setState(() {
-        final band = Banda(id: '', name: name, votes: 0);
+        final band = Banda(id: '6', name: name, votes: 0);
         bandas.add(band);
       });
     }
