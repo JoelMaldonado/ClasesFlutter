@@ -1,4 +1,5 @@
 import 'package:band_names_app/pages/home_page.dart';
+import 'package:band_names_app/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -9,7 +10,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Material App',
-        initialRoute: 'home',
-        routes: {'home': (_) => HomePage()});
+        initialRoute: 'login',
+        routes: {
+          'home': (_) => const HomePage(),
+          'login': (_) => const LoginPage()
+        },
+    );
   }
 }

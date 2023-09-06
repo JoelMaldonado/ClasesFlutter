@@ -7,14 +7,18 @@ require('dotenv').config();
 const app = express();
 
 // Node Server
-
 const server = require('http').createServer(app);
+//module.exports.io = require('socket.io')(server);
 const io = require('socket.io')(server);
 
-// Mensajes de Sockets
 io.on('connection', client => {
     console.log('Cliente Conectado');
     client.on('disconnect', ()=> console.log('Cliente Desconectado'))
+
+    client.on('mensaje', ( payload )=> {
+        console.log('Mensaje!!!!', payload);
+        io.emit('mensaje', { admin: 'Nuevo mensaje'})
+    })
 });
 
 
